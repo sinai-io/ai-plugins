@@ -1,0 +1,12 @@
+{
+  "name": "sinai-io",
+  "description": "AI plugins and extensions developed by Sinai RnD",
+  "owner": {"name": "Sinai RnD", "email": "r@sinai.io"},
+  "plugins": [
+    {
+      "name": "tliner",
+      "description": "🌟 AI's diary: track the work with the markdown log",
+      "source": "./plugins/tliner"
+    }
+  ]
+}
