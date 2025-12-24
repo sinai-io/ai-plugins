@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ \"$TIMELINER_AUTO_COMPACT\" != \"false\" ] && TIMELINER_HOOK_RUNNING=1 claude -p --no-session-persistence --resume \"$(cat | jq -r '.session_id')\" \"/tliner:save\" || true",
+            "command": "[ \"$TIMELINER_AUTO_COMPACT\" != \"false\" ] && TIMELINER_HOOK_RUNNING=1 claude -p --no-session-persistence --resume \"$(cat | jq -r '.session_id')\" \"/tliner:save. Answer with `task_id` only\" || true",
             "timeout": 120
           }
         ]
