@@ -1,0 +1,39 @@
+{
+  "description": "Auto-save/load context on compact via instruction injection",
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -z \"$TIMELINER_HOOK_RUNNING\" ] && [ \"$TIMELINER_AUTO_SAVE\" != \"false\" ] && TIMELINER_HOOK_RUNNING=1 claude -p --no-session-persistence --resume \"$(cat | jq -r '.session_id')\" \"/tliner:save\"",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -n --arg ctx 'IMPORTANT: Before proceeding with compact, run /tliner:save first to persist current context.' '{hookSpecificOutput:{hookEventName:\"UserPromptSubmit\",additionalContext:$ctx}}'",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -n --arg ctx 'Context was saved before compact. Run /tliner:load to restore it.' '{hookSpecificOutput:{hookEventName:\"SessionStart\",additionalContext:$ctx}}'",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

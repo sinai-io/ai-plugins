@@ -1,0 +1,39 @@
+{
+  "description": "Auto-save/load context on session lifecycle events",
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -z \"$TIMELINER_HOOK_RUNNING\" ] && [ \"$TIMELINER_AUTO_SAVE\" != \"false\" ] && TIMELINER_HOOK_RUNNING=1 claude -p --no-session-persistence --resume \"$(cat | jq -r '.session_id')\" \"/tliner:save\" || true",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ \"$TIMELINER_AUTO_COMPACT\" != \"false\" ] && TIMELINER_HOOK_RUNNING=1 claude -p --no-session-persistence --resume \"$(cat | jq -r '.session_id')\" \"/tliner:save\" || true",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {       
+        "matcher": "compact" ,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "since=$(date -u -d '5 minutes ago' '+%Y-%m-%dT%H:%M:%SZ'); ctx=$(uvx tliner get-steps --since \"$since\" 2>/dev/null || echo 'No recent context'); jq -n --arg ctx \"$ctx\" '{hookSpecificOutput:{hookEventName:\"SessionStart\",additionalContext:$ctx}}'",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
