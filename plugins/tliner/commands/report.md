@@ -1,5 +1,6 @@
 ---
 description: "Your progress summary. Usage: /report [IDs] [since] [until] <topic>"
+argument-hint: "[task_id | topic] [since] [until]"
 allowed_tools: ["Read", "mcp__timeliner__get_steps", "mcp__timeliner__task_list"]
 ---
 

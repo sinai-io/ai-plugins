@@ -1,5 +1,6 @@
 ---
 description: "Restore previous work into context (most relevant first). Usage: /load [task_id] [since] [until] <topic>"
+argument-hint: "[task_id | topic] [since] [until]"
 allowed_tools: ["Read", "Write", "Glob", "mcp__timeliner__get_steps"]
 ---
 
@@ -66,8 +67,8 @@ mcp__timeliner__get_steps(
   page=1
 )
 ```
-Handle **pagination** if needed - fetch additional pages for comprehensive context.
 
+**MANDATORY**: Read ALL pages by default. Make sequential calls with page=1, page=2, ... until page == total_pages. Only stop early if user explicitly requests specific page(s).
 
 ### 4. **Filter by Topic**
 
