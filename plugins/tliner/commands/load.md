@@ -1,5 +1,5 @@
 ---
-description: "Restore previous work into context (most relevant first). Usage: /load [task_id] [since] [until] <topic>"
+description: "Restore previous work into context (most relevant first). Usage: [task_id | topic] [since] [until]"
 argument-hint: "[task_id | topic] [since] [until]"
 allowed_tools: ["Read", "Write", "Glob", "mcp__timeliner__get_steps"]
 ---
