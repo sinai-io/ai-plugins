@@ -1,5 +1,5 @@
 ---
-description: "Consolidate scattered steps into coherent tasks. Usage: /group [IDs] [since] [until] <topic>"
+description: "Consolidate scattered steps into coherent tasks.  Usage: [task_id | topic] [since] [until]"
 argument-hint: "[task_id | topic] [since] [until]"
 allowed_tools: ["Read", "mcp__timeliner__get_steps", "mcp__timeliner__group_steps", "mcp__timeliner__task_list"]
 ---
@@ -67,42 +67,17 @@ mcp__timeliner__group_steps({
 })
 ```
 
-**Behavior**:
-- Copies step to target (preserves original timestamp)
-- Adds `prev_tasks: [source_task_id]` to moved step metadata
-- Deletes original step from source
-- Deletes source task file if all steps moved
 
 ### Phase 5. Report Results
 
 ```markdown
-## Grouping Complete
+Grouping Complete:
 
 **Moved**: X steps
 **Skipped**: Y steps (groupable: false)
 **Deleted tasks**: Z empty task files
 
-### Audit Trail
-Moved steps now have `prev_tasks` metadata pointing to original task.
 ```
-
----
-
-## Example Usage
-
-```
-/group last week                    # Group all steps from last week
-/group auth                         # Group steps matching "auth" topic
-/group 20251226T120000.123456Z      # Group steps from specific task
-/group since Monday MkDocs          # Group MkDocs-related steps since Monday
-```
-
-## Edge Cases
-
-- **No matches**: Print "No steps found for grouping" and exit
-- **Single task**: Nothing to group - all steps already together
-- **All steps protected**: Report "All steps have groupable: false"
-- **Same target**: Skip steps already in target task (no-op)
 
 ## Writing Style
 
