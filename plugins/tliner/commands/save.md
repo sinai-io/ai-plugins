@@ -10,12 +10,13 @@ $ARGUMENTS
 
 ## Flow
 0. **MANDATORY GOLDEN RULE**:
-   - **Summary section**: Write like you're explaining to a colleague in Slack. Short sentences. Simple words. Lazy and direct.
-   - **Facts & Resources sections**: Preserve EXACT details VERBATIM - full paths, complete commands, actual URLs, precise error messages. DO NOT summarize.
-   - ✅ Good Format: "Tried X. Got Y. Fixed Z in file"
-   - ✅ GOOD: "Tried `/api/user` endpoint. Got 404. Fixed route in `src/routes.py#L42`."
-   - ✅ GOOD: "Parser crashed on `test.json`. Missing null check in `lexer.cpp#L289`. Added guard."
-   - ❌ BAD: "An investigation was conducted regarding the API endpoint configuration, which revealed that the routing mechanism was not properly configured to handle user-related requests."
+   - For **Summary section**: Write like you're explaining to a colleague in Slack. Short sentences. Simple words. Lazy and direct.
+   - For **Facts & Resources sections**: Preserve EXACT details VERBATIM - full paths, complete commands, actual URLs, precise error messages. DO NOT summarize.
+   - Examples:
+        - ✅ Good Format: "Tried X. Got Y. Outcomes is Z"
+        - ✅ GOOD: "Tried `/api/user` endpoint. Got 404. Fixed route in `src/routes.py#L42`."
+        - ✅ GOOD: "Parser crashed on `test.json`. Missing null check in `lexer.cpp#L289`. Added guard."
+        - ❌ BAD: "An investigation was conducted regarding the API endpoint configuration, which revealed that the routing mechanism was not properly configured to handle user-related requests."
 1.  **Generate Content**:
     *   Carefully enumerate what you know so far
     *   Generate the outcomes for the current step following the "Content Structure" and "Rules".
@@ -25,7 +26,8 @@ $ARGUMENTS
         *   ❌ Avoid Corporate speak: "regarding", "mechanism", "proper", "related", "utilize", "facilitate", "orchestration"
         *   ❌ Avoid Abstract nouns: "investigation", "implementation", "configuration", "verification"
         *   ✅ Use: Active verbs, "I/we" pronouns, short sentences (max 15 words), keep all technical details
-    *   **For Facts & Resources**: DO NOT rewrite or summarize. Verify paths, commands, URLs are copied EXACTLY as provided.
+    *   **For Facts & Resources**: DO NOT rewrite or summarize. Verify paths, commands, URLs are copied EXACTLY as provided. 
+    *   **For Artifacts** (plans, release notes, snippets...): store them fully as one of the Facts (not only description how you obtain the artifiact, but artifact ITSELF!)
 3.  **Save to Timeliner**:
     *   Call `mcp__timeliner__save_step` with the following parameters:
         *   `task_id`: Use the memorized `task_id` if you have one. If this is the first time saving for this task, send an **empty string** (`""`). The system will create a new task and return the new `task_id`.
@@ -36,8 +38,8 @@ $ARGUMENTS
 ## Content Structure
 
 1. **Summary**: Describe current step summary and general flow of investigation.
-2. **User Input**: Note ALL user's input and direction they want to go.
-3. **Facts**: Describe outcomes as facts with EXACT details. Preserve user-provided paths, commands, and descriptions VERBATIM.
+2. **User Input**: Note EXACTLY ALL user's inputs and direction they want to go.
+3. **Facts**: Paste outcomes as facts with EXACT details. Preserve user-provided paths, commands, and descriptions VERBATIM. OUTCOMES = what was produced (artifacts, findings, decisions, researches). 
    - ✅ GOOD: "Rebuilt kernel with `CONFIG_DEBUG_INFO=y`. Boot time dropped from 8.2s to 3.1s. Traced delay to initramfs decompression in `init/initramfs.c#L647`."
    - ❌ BAD: "The kernel configuration was modified to enable debugging information. Performance improvements were observed during the boot sequence. Analysis revealed that initialization delays were attributable to decompression operations."
 4. **Resources**: Note ALL resources used VERBATIM (files, links, tools, commands) with full paths/URLs. NO summarization.
