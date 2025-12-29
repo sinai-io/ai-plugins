@@ -17,17 +17,37 @@ $ARGUMENTS
 - Read `load.md` file and execute it with $ARGUMENTS
 - Retrieve all matching steps
 
+**CRITICAL - Pagination**:
+- Do NOT stop at "enough" data. Fetch ALL pages (page=1, 2, ... until page == total_pages)
+- "Time-first" rule requires complete data - stopping early = wrong target selection
+- If total_pages > 1, you MUST continue fetching
+
 ### Phase 2. Analyze Steps Semantically
 
 **Goal**: Identify which steps belong together.
 
-**Rules**:
-- Group by topic/feature, not by time alone
-- "Time-first becomes king" - earliest task by timestamp = target
-- Skip steps with `metadata.groupable: false`
-- Consider: same feature? same bug? same investigation thread?
+**LLM decides WHAT to group** (semantic):
+- Group by **coherent narrative**, not by keyword match
+- Ask: "Would future-me read these steps together as ONE guide?"
+- Same topic can yield MULTIPLE groups:
+  - Implementation vs. testing tools vs. deployment scripts
+  - Investigation phase vs. fix phase
+  - Core work vs. supporting artifacts
+- Do NOT create mega-tasks (dumping all keyword matches into one pile)
+- Do NOT regroup already coherent tasks
+- Consider: same feature? same bug? same thread? same artifact type? etc.
 
-**Output**: Mental mapping of `{step_id: target_task_id}` pairs
+**Rules decide WHERE it goes** (mechanical - no judgment):
+- "Time-first becomes king" = target is task with **smallest timestamp** (min `task_id`)
+- Do NOT pick target based on "most comprehensive" or "best fit" - use earliest timestamp only
+- If MULTIPLE groups identified, each group has its own earliest target
+
+**Skip protection** (check explicitly, don't assume):
+- Parse each step's `metadata.groupable` field - if `false`, skip
+- Parse each task's `groupable` field - if `false`, skip ALL its steps
+- List skipped items in Phase 3 presentation
+
+**Output**: Explicit mapping `{step_id: target_task_id}` for every step to move
 
 ### Phase 3. Present Grouping Plan
 
@@ -36,21 +56,28 @@ Before executing, show the user:
 ```markdown
 ## Proposed Groupings
 
-### Target: [earliest_task_title] (`task_id`)
+### Group 1: [narrative_name]
+**Target**: [earliest_task_title] (`task_id`)
 
-Moving from [source_task_title]:
-- [step_title] (`step_id`)
-- [step_title] (`step_id`)
+Moving:
+- [step_title] (`step_id`) from [source_task]
+- [step_title] (`step_id`) from [source_task]
 
-Moving from [another_source]:
-- [step_title] (`step_id`)
+### Group 2: [narrative_name]
+**Target**: [earliest_task_title] (`task_id`)
+
+Moving:
+- [step_title] (`step_id`) from [source_task]
+
+### No Action (already coherent or no group fit)
+- [task_title] (`task_id`) - [reason]
 
 ### Skipped (groupable: false)
 - [step_title] (`step_id`) - protected
 
-### Result
-- X steps will move
-- Y source tasks will be deleted (emptied)
+### Summary
+- X steps will move across Y groups
+- Z source tasks will be deleted (emptied)
 ```
 
 **Ask user to confirm** before proceeding.
