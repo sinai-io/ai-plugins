@@ -1,6 +1,6 @@
 ---
-description: "Your progress summary. Usage: [task_id | topic] [since] [until]"
-argument-hint: "[task_id | topic] [since] [until]"
+name: report
+description: "Your progress summary. Use when generating work summaries, creating status reports, or reviewing progress on specific topics. Usage: [task_id | topic] [since] [until]"
 allowed_tools: ["Read", "mcp__timeliner__get_steps", "mcp__timeliner__task_list"]
 ---
 
@@ -28,8 +28,8 @@ Extract per approach:
 
 ### 3. Generate Report
 
-0. **MANDATORY GOLDEN RULE**: Write like you're explaining to a colleague in Slack. 
-   - Short sentences. Simple words.  Lazy and direct. 
+0. **MANDATORY GOLDEN RULE**: Write like you're explaining to a colleague in Slack.
+   - Short sentences. Simple words.  Lazy and direct.
    - Casual BUT keep full technical precision: exact commands, complete file paths, detailed stack traces.
    - Examples:
       - ✅ Good Format: "Tried X. Got Y. Fixed Z in file"

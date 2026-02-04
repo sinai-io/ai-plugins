@@ -1,6 +1,6 @@
 ---
-description: "Restore previous work into context (most relevant first). Usage: [task_id | keywords] [since] [until]"
-argument-hint: "[task_id | keywords] [since] [until]"
+name: load
+description: "Restore previous work into context (most relevant first). Use when resuming previous work, searching for past investigations, retrieving specific task history, or filtering by time/keywords. Usage: [task_id | keywords] [since] [until]"
 allowed_tools: ["Read", "Write", "Glob", "mcp__timeliner__get_steps"]
 ---
 
@@ -72,7 +72,7 @@ mcp__timeliner__get_steps(
 
 **MANDATORY**: Read ALL pages by default. Make sequential calls with page=1, page=2, ... until page == total_pages. Only stop early if user explicitly requests specific page(s).
 
-### 4. **Understand**   
+### 4. **Understand**
 
 - Do NOT jump to solutions - understand problem and context first
 - Consider timestamps:
@@ -85,7 +85,7 @@ mcp__timeliner__get_steps(
 ### 5. **Acknowledge**
 
 - Briefly confirm understanding of context
-- State readiness to continue 
+- State readiness to continue
 
 ---
 

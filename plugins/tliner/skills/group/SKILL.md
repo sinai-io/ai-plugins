@@ -1,6 +1,6 @@
 ---
-description: "Consolidate scattered steps into coherent tasks.  Usage: [task_id | topic] [since] [until]"
-argument-hint: "[task_id | topic] [since] [until]"
+name: group
+description: "Consolidate scattered steps into coherent tasks. Use when organizing fragmented work, merging related steps, or restructuring Timeline for better coherence. Usage: [task_id | topic] [since] [until]"
 allowed_tools: ["Read", "mcp__timeliner__get_steps", "mcp__timeliner__group_steps", "mcp__timeliner__task_list"]
 ---
 

@@ -1,5 +1,6 @@
 ---
-description: "Save findings/outcomes into a Timeline"
+name: save
+description: "Save findings/outcomes into a Timeline. Use when documenting work progress, storing investigation outcomes, recording completed steps, or creating permanent records of research/debugging/implementation work."
 allowed_tools: ["Read", "Write", "Edit", "Glob", "LS", "mcp__timeliner__task_create", "mcp__timeliner__save_step", "mcp__timeliner__show_task"]
 ---
 
@@ -26,7 +27,7 @@ $ARGUMENTS
         *   ❌ Avoid Corporate speak: "regarding", "mechanism", "proper", "related", "utilize", "facilitate", "orchestration"
         *   ❌ Avoid Abstract nouns: "investigation", "implementation", "configuration", "verification"
         *   ✅ Use: Active verbs, "I/we" pronouns, short sentences (max 15 words), keep all technical details
-    *   **For Facts & Resources**: DO NOT rewrite or summarize. Verify paths, commands, URLs are copied EXACTLY as provided. 
+    *   **For Facts & Resources**: DO NOT rewrite or summarize. Verify paths, commands, URLs are copied EXACTLY as provided.
     *   **For Artifacts** (plans, release notes, snippets...): store them fully as one of the Facts (not only description how you obtain the artifiact, but artifact ITSELF!)
 3.  **Save to Timeliner**:
     *   Call `mcp__timeliner__save_step` with the following parameters:
@@ -34,12 +35,12 @@ $ARGUMENTS
         *   `title`: Up to 5 words which represent essence of the step.
         *   `outcomes`: The exact content that you just generated.
     *   **VERY IMPORTANT**: If a new `task_id` is returned, you MUST memorize it for all future `save_step` calls for this task.
-    
+
 ## Content Structure
 
 1. **Summary**: Describe current step summary and general flow of investigation.
 2. **User Input**: Note EXACTLY ALL user's inputs and direction they want to go.
-3. **Facts**: Paste outcomes as facts with EXACT details. Preserve user-provided paths, commands, and descriptions VERBATIM. OUTCOMES = what was produced (artifacts, findings, decisions, researches). 
+3. **Facts**: Paste outcomes as facts with EXACT details. Preserve user-provided paths, commands, and descriptions VERBATIM. OUTCOMES = what was produced (artifacts, findings, decisions, researches).
    - ✅ GOOD: "Rebuilt kernel with `CONFIG_DEBUG_INFO=y`. Boot time dropped from 8.2s to 3.1s. Traced delay to initramfs decompression in `init/initramfs.c#L647`."
    - ❌ BAD: "The kernel configuration was modified to enable debugging information. Performance improvements were observed during the boot sequence. Analysis revealed that initialization delays were attributable to decompression operations."
 4. **Resources**: Note ALL resources used VERBATIM (files, links, tools, commands) with full paths/URLs. NO summarization.
@@ -49,7 +50,7 @@ $ARGUMENTS
     - **Format**: Short fundamental rules. Up to 10 items (max 200 characters each).
    - ✅ GOOD: "Run `make clean` before changing kernel configs. Incremental builds cache old flags."
    - ❌ BAD: "It was determined that comprehensive build cleanup procedures should be executed prior to modification of configuration parameters, as incremental compilation processes maintain cached state from previous builds."
-   
+
 
 ## Rules
 1. **Title**: The `outcomes` content MUST NOT include the title. The title is passed as a separate `title` parameter to the tool.
@@ -59,7 +60,7 @@ $ARGUMENTS
 5. **Evidence**: Including evidences for statements is mandatory:
     - Link to source files with line numbers: `[cmd line flags](../src/go/flags.go#L94)`
     - Links to external resources: `[config docs](https://example.com/docs/setup.html)`
-6. **Structure**: 
+6. **Structure**:
     - Fit all outcomes in ONE chapter, don't split into several chapters.
     - Feel free to use multiple sub-sections inside the step chapter.
 7. **Visualisation**:  Prefer to use of diagrams/tables above the long explanations.
