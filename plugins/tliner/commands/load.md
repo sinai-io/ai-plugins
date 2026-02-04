@@ -1,6 +1,6 @@
 ---
-description: "Restore previous work into context (most relevant first). Usage: [task_id | topic] [since] [until]"
-argument-hint: "[task_id | topic] [since] [until]"
+description: "Restore previous work into context (most relevant first). Usage: [task_id | keywords] [since] [until]"
+argument-hint: "[task_id | keywords] [since] [until]"
 allowed_tools: ["Read", "Write", "Glob", "mcp__timeliner__get_steps"]
 ---
 
@@ -9,11 +9,11 @@ allowed_tools: ["Read", "Write", "Glob", "mcp__timeliner__get_steps"]
 Universal data retrieval from the Timeline. Accepts composable filters (AND logic):
 - **IDs**: Task or step ID (e.g., `20251217T084803.537626Z`)
 - **Time phrases**: Natural language (e.g., "last week", "since Monday", "3 days ago")
-- **Topic**: Plain text for searching in title/outcomes (semantiacally )
+- **Keywords**: Fuzzy search in title/outcomes/tags (multiple keywords use OR logic)
 
 $ARGUMENTS
 
-## Flow: Parse → Convert → Retrieve → Filter → Output
+## Flow: Parse → Convert → Retrieve → Understand → Acknowledge
 
 ### 1. **Parse Input**
 
@@ -31,9 +31,10 @@ Analyze `$ARGUMENTS` to extract:
 - "2 days ago", "yesterday", "today"
 - "from X to Y", "between X and Y"
 
-**Topic** - Everything else:
+**Keywords** - Everything else:
 - Remaining words after extracting IDs and time phrases
-- Used for semantic search in title + outcomes
+- Passed to `query` param for fuzzy search (partial matches work)
+- Multiple keywords use OR logic (matches ANY keyword)
 
 **Additional behavior**:
 - Parse any additional instructions from load command
@@ -64,20 +65,14 @@ mcp__timeliner__get_steps(
   since="...",        # ISO timestamp or "" if no time filter
   until="...",        # ISO timestamp or "" if no time filter
   ids=[...],          # Array of IDs or None if no ID filter
+  query=["kw1", "kw2"],  # Array of keywords or None (OR logic - matches ANY)
   page=1
 )
 ```
 
 **MANDATORY**: Read ALL pages by default. Make sequential calls with page=1, page=2, ... until page == total_pages. Only stop early if user explicitly requests specific page(s).
 
-### 4. **Filter by Topic**
-
-If Topic are present:
-- For each step in results
-- Check if `step.title` OR `step.outcomes` are semantically related to Topic
-- Keep only matching steps
-
-### 5. **Understand**   
+### 4. **Understand**   
 
 - Do NOT jump to solutions - understand problem and context first
 - Consider timestamps:
@@ -87,7 +82,7 @@ If Topic are present:
   - Re-evaluate based on all available data
   - Don't blindly follow previous assumptions
 
-### 6. **Acknowledge**
+### 5. **Acknowledge**
 
 - Briefly confirm understanding of context
 - State readiness to continue 
@@ -99,8 +94,10 @@ If Topic are present:
 ```
 /load 20251204T182649.123456Z              # Exact ID (task or step)
 /load last week                             # Time filter only
-/load MkDocs bugs since Monday              # Topic + time
-/load 20251204T182649.123456Z authentication  # ID + Topic filter
+/load MkDocs navigation                     # Keyword search (fuzzy match)
+/load MkDocs bugs since Monday              # Keywords + time
+/load authentication flow, login problems   # Multiple keywords (OR logic)
+/load 20251204T182649.123456Z auth          # ID + keyword filter
 /load                                       # Use MEMORIZED taskId or ask
 ```
 
