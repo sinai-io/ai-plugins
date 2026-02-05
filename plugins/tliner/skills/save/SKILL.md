@@ -1,5 +1,5 @@
 ---
-name: save
+name: tliner-save
 description: "Save findings/outcomes into a Timeline. Use when documenting work progress, storing investigation outcomes, recording completed steps, or creating permanent records of research/debugging/implementation work."
 allowed_tools: ["Read", "Write", "Edit", "Glob", "LS", "mcp__timeliner__task_create", "mcp__timeliner__save_step", "mcp__timeliner__show_task"]
 ---
