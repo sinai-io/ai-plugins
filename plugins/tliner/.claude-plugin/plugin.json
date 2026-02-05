@@ -1,9 +1,9 @@
 {
   "name": "tliner",
-  "version": "0.4.1",
+  "version": "0.5.1",
   "description": "🌟 AI's diary: track the work with the markdown log",
   "author": {"name": "Sinai RnD"},
-  "commands": ["./commands/"],
+  "skills": ["./skills/"],
   "mcpServers": {
     "timeliner": {
       "command": "uvx",
