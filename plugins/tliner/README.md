@@ -12,6 +12,14 @@
 
 Your agent gets *context*. You get *clarity*.
 
+## Table of Contents
+- [What is it?](#what-is-it)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Advanced Usage](#advanced-usage)
+- [CLI Commands](#cli-commands)
+
 ## What is it?
 
 Timeliner tracks development sessions as timestamped markdown files, giving recall of past decisions, implementations, and context.
@@ -61,12 +69,17 @@ claude plugin install tliner
 
 ### Codex CLI
 
-Use the built-in skill installer:
+Run the Codex and use the built-in skill installer (separately for every skill in the Timeliner):
 ```
-$skill-installer install tliner skills from https://github.com/sinai-io/ai-plugins/tree/main/plugins/tliner/skills
+$skill-installer install tliner skills from https://github.com/sinai-io/ai-plugins/tree/main/plugins/tliner/skills/save
+$skill-installer install tliner skills from https://github.com/sinai-io/ai-plugins/tree/main/plugins/tliner/skills/load
+$skill-installer install tliner skills from https://github.com/sinai-io/ai-plugins/tree/main/plugins/tliner/skills/report
+$skill-installer install tliner skills from https://github.com/sinai-io/ai-plugins/tree/main/plugins/tliner/skills/group
 ```
 
+It will run Codex Internal script:  `.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py`.
 MCP server is auto-configured when skills reference it.
+
 ### Other agents
 See [Manual Installation](#manual-installation).
 
