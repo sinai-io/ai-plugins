@@ -6,7 +6,7 @@
     {
       "name": "tliner",
       "description": "🌟 AI's diary: track the work with the markdown log",
-      "source": "./plugins/tliner"
+      "source": "./tliner"
     }
   ]
 }
