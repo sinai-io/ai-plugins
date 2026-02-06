@@ -13,6 +13,10 @@ claude plugin marketplace add sinai-io/ai-plugins
 
 > 🌟 AI's diary: track the work with the markdown log
 
+```bash
+claude plugin install tliner
+```
+
 1. Your AI agent forgets everything between sessions. Timeliner fixes that *elegantly*.
 <br/>**The idea:** `/save` your progress → timestamped markdown gets created. Next session, `/load` brings it back into context. That's it.
 
