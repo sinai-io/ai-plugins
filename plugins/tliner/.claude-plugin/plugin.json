@@ -1,6 +1,6 @@
 {
   "name": "tliner",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "🌟 AI's diary: track the work with the markdown log",
   "author": {"name": "Sinai RnD"},
   "skills": ["./skills/"],

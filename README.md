@@ -8,22 +8,25 @@ Collection of AI plugins and extensions developed by Sinai RnD for Claude Code a
 claude plugin marketplace add sinai-io/ai-plugins
 ```
 
-## Plugins
 
-### tliner
+## Timeliner
 
 > 🌟 AI's diary: track the work with the markdown log
 
-Timeline tracking for AI agent work. Logs decisions, implementations, and context as searchable ***markdown*** files.
+1. Your AI agent forgets everything between sessions. Timeliner fixes that *elegantly*.
+<br/>**The idea:** `/save` your progress → timestamped markdown gets created. Next session, `/load` brings it back into context. That's it.
 
-**Install:**
-```bash
-uvx --from tliner@latest tliner-install
-```
+2. And honestly? You forget a lot too. AI-assisted coding is fast, but your memories get scattered.
+<br/>**The fix:** Log is all `.md` files → `/report last week` for a quick recap, use in Obsidian, grep...
 
-**Usage:**
-- `/tliner:save` — save current work to timeline
-- `/tliner:load` — restore context from past work
-- `/tliner:report` — generate progress summary
+Your agent gets *context*. You get *clarity*.
 
-📖 [Docs on PyPi](https://pypi.org/project/tliner/)
+## Feature Highlights
+
+- **Markdown storage** - Human-readable logs
+- **Agent-agnostic** - Works with Claude Code, Gemini CLI, Opencode, Cline/Roo, and other MCP-enabled tools
+- **[Obsidian](https://obsidian.md/)-friendly** - Auto-creates `.obsidian/` with Minimal theme on install
+
+
+
+📖 [Docs on GitHub](https://github.com/sinai-io/ai-plugins/blob/main/plugins/tliner/README.md)
