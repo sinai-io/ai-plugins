@@ -37,21 +37,37 @@ Makes **context** control for your Agent much easier. Works with any MCP-enabled
 - Track hypothesis
 
 
-
-
 ## Installation
 
-### Auto Setup
+> DISCLAIMER: Though many Agents are supported, Timeliner is mostly tested with Claude Code
 
+### Claude Code
 ```bash
-uvx --from tliner@latest tliner-install
+claude plugin marketplace add sinai-io/ai-plugins
+claude plugin install tliner
 ```
-- Auto-detects **Claude Code** or **Gemini CLI** (for other tools see Manual Setup below)
-- Claude installs to user scope by default. Add `--project` for project scope.
-- Documents stored in `docs/timeline/` by default. Customize via [Environment Variables](#environment-variables)
 
-### Manual Setup 
+### Gemini CLI
+```bash
+gemini extensions install https://github.com/sinai-io/ai-plugins/tree/main/plugins/tliner
+```
+### OpenCode + OmO
 
+With [OmO](https://github.com/brycewestheimer/oh-my-opencode-local-dev) compatibility layer, use Claude plugins natively:
+```bash
+claude plugin marketplace add sinai-io/ai-plugins
+claude plugin install tliner
+```
+
+### Codex CLI
+
+Use the built-in skill installer:
+```
+$skill-installer install tliner skills from https://github.com/sinai-io/ai-plugins/tree/main/plugins/tliner/skills
+```
+
+MCP server is auto-configured when skills reference it.
+### Other agents
 See [Manual Installation](#manual-installation).
 
 
@@ -85,11 +101,11 @@ Generate work report for **You** analyzing the Timeline: `/tliner:report [topic]
 ## Configuration
 
 ### Environment Variables
-- `TIMELINER_WORK_FOLDER`: Storage directory (default: `work/docs`)
--  add envvar to `.claude/settings.json` or `.claude/settings.local.json` :
+- `TIMELINER_WORK_FOLDER`: Storage directory (default: `docs/timeline`)
+- add envvar to `.claude/settings.json` or `.claude/settings.local.json` :
 ```json
-{ 
-  "env": { "TIMELINER_WORK_FOLDER": "info/mydocs"  } 
+{
+  "env": { "TIMELINER_WORK_FOLDER": "info/mydocs"  }
 }
 ```
 
@@ -113,23 +129,6 @@ Everything still works—searches, retrieval, CLI commands—but now your root s
 
 
 ### Manual Installation
-
-#### Codex CLI
-
-Use the built-in skill installer:
-```
-$skill-installer install tliner skills from https://github.com/sinai-io/ai-plugins/tree/main/plugins/tliner/skills
-```
-
-MCP server is auto-configured when skills reference it.
-
-#### OpenCode + OmO
-
-With [OmO](https://github.com/brycewestheimer/oh-my-opencode-local-dev) compatibility layer, use Claude plugins natively:
-```bash
-claude plugin marketplace add sinai-io/ai-plugins
-claude plugin install tliner
-```
 
 #### Generic MCP Setup (Cline, Roo, etc.)
 
