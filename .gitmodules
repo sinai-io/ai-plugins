@@ -1,0 +1,3 @@
+[submodule "plugins/tliner"]
+	path = plugins/tliner
+	url = git@github.com:sinai-io/tliner.git

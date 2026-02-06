@@ -29,4 +29,4 @@ Your agent gets *context*. You get *clarity*.
 
 
 
-📖 [Docs on GitHub](https://github.com/sinai-io/ai-plugins/blob/main/plugins/tliner/README.md)
+📖 [Docs on GitHub](https://github.com/sinai-io/tliner)
